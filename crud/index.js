@@ -19,7 +19,10 @@ async function save(nomeTabela, id, dado) {
     if (id) {
 
     } else {
-        const savedData = await db.collection(nomeTabela).add(dado);
+        const referenceEntity = await db.collection(nomeTabela).add(dado);
+        const savedData = {
+            ... dado
+        }
     };
 };
 
