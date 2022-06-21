@@ -1,15 +1,5 @@
-const { initializeApp,
-    applicationDefault,
-    cert } = require('firebase/app');
-
-const { getFirestore,
-    collection,
-    doc,
-    setDoc,
-    addDoc,
-    query,
-    where,
-    getDocs } = require('firebase/firestore/lite');
+const { initializeApp, applicationDefault, cert } = require('firebase/app');
+const { getFirestore, collection, doc, setDoc, addDoc, query, where, getDocs } = require('firebase/firestore/lite');
 
 const firebaseConfig = {
     apiKey: "AIzaSyCMfYydh79dinleDXYyRRKm5S7cLjIATEg",
@@ -64,10 +54,11 @@ async function get(nomeTabela) {
             id: doc.id
         }
         lista.push(data);
-        console.log(docs.id, " => ", doc.data());
+        console.log(doc.id, " => ", doc.data());
     });
 };
 
 module.exports = {
-    save
+    save,
+    get
 }
