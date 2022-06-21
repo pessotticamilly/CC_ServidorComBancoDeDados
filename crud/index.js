@@ -1,5 +1,5 @@
-const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
-const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+const { initializeApp, applicationDefault, cert } = require('firebase/app');
+const { getFirestore, Timestamp, FieldValue, collection } = require('firebase/firestore');
 
 const firebaseConfig = {
     apiKey: "AIzaSyCMfYydh79dinleDXYyRRKm5S7cLjIATEg",
@@ -17,7 +17,7 @@ const firebaseConfig = {
   
 async function save(nomeTabela, id, dado) {
     if (id) {
-        const referenceEntity = await db.collection(nomeTabela).doc(id).set(dado);
+        const referenceEntity = await collection(nomeTabela).doc(id).set(dado);
         const savedDado = {
             ... dado,
             id: id
@@ -25,7 +25,7 @@ async function save(nomeTabela, id, dado) {
 
         return savedData;
     } else {
-        const referenceEntity = await db.collection(nomeTabela).add(dado);
+        const referenceEntity = await collection(nomeTabela).add(dado);
         const savedData = {
             ... dado,
             id: referenceEntity.id
