@@ -1,5 +1,5 @@
 const { initializeApp, applicationDefault, cert } = require('firebase/app');
-const { getFirestore, Timestamp, FieldValue, collection } = require('firebase/firestore');
+const { getFirestore, collection, doc, setDoc, addDoc } = require('firebase/firestore/lite');
 
 const firebaseConfig = {
     apiKey: "AIzaSyCMfYydh79dinleDXYyRRKm5S7cLjIATEg",
@@ -9,25 +9,27 @@ const firebaseConfig = {
     messagingSenderId: "632108984809",
     appId: "1:632108984809:web:cf20fb6c246e3f41c34378",
     measurementId: "G-PVR5DW0PJX"
-  };
-  
-  const app = initializeApp(firebaseConfig);
+};
 
-  const db = getFirestore();
-  
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore();
+
+//colletion(coleção) = tabela
+
 async function save(nomeTabela, id, dado) {
     if (id) {
-        const referenceEntity = await collection(nomeTabela).doc(id).set(dado);
+        const referenceEntity = await setDoc(doc(db, nomeTabela, id), dado);
         const savedDado = {
-            ... dado,
+            ...dado,
             id: id
         }
 
         return savedData;
     } else {
-        const referenceEntity = await collection(nomeTabela).add(dado);
+        const referenceEntity = await addDoc(collection(db, nomeTabela), dado);
         const savedData = {
-            ... dado,
+            ...dado,
             id: referenceEntity.id
         };
 
@@ -35,7 +37,8 @@ async function save(nomeTabela, id, dado) {
     };
 };
 
-//coleção = tabela
+
+async function get
 
 module.exports = {
     save

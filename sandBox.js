@@ -1,3 +1,8 @@
 const crud = require("./crud");
 
-crud.save("pessoas", undefined, { nome: "Camiss", sobrenome: "Pessotti" });
+async function salvarDado() {
+    const savedData = await crud.save("pessoas", undefined, { nome: "Camiss", sobrenome: "Pessotti", idade: 17 });
+    console.log(savedData);
+}
+
+salvarDado();
