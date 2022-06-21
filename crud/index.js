@@ -10,11 +10,11 @@ const firebaseConfig = {
     appId: "1:632108984809:web:cf20fb6c246e3f41c34378",
     measurementId: "G-PVR5DW0PJX"
   };
+  
+  const app = initializeApp(firebaseConfig);
 
-initializeApp(firebaseConfig);
-
-const db = getFirestore();
-
+  const db = getFirestore();
+  
 async function save(nomeTabela, id, dado) {
     if (id) {
         const referenceEntity = await db.collection(nomeTabela).doc(id).set(dado);
@@ -40,6 +40,3 @@ async function save(nomeTabela, id, dado) {
 module.exports = {
     save
 }
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
