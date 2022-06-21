@@ -1,5 +1,15 @@
-const { initializeApp, applicationDefault, cert } = require('firebase/app');
-const { getFirestore, collection, doc, setDoc, addDoc } = require('firebase/firestore/lite');
+const { initializeApp,
+    applicationDefault,
+    cert } = require('firebase/app');
+
+const { getFirestore,
+    collection,
+    doc,
+    setDoc,
+    addDoc,
+    query,
+    where,
+    getDocs } = require('firebase/firestore/lite');
 
 const firebaseConfig = {
     apiKey: "AIzaSyCMfYydh79dinleDXYyRRKm5S7cLjIATEg",
@@ -26,6 +36,7 @@ async function save(nomeTabela, id, dado) {
         }
 
         return savedData;
+
     } else {
         const referenceEntity = await addDoc(collection(db, nomeTabela), dado);
         const savedData = {
@@ -38,7 +49,24 @@ async function save(nomeTabela, id, dado) {
 };
 
 
-async function get
+async function get(nomeTabela) {
+    const tableRef = collection(db, nomeTabela);
+
+    const q = query(tableRef);
+
+    const querySnapshot = await getDocs(q);
+
+    const lista = [];
+
+    querySnapshot.forEach((doc) => {
+        const data = {
+            ...doc.data(),
+            id: doc.id
+        }
+        lista.push(data);
+        console.log(docs.id, " => ", doc.data());
+    });
+};
 
 module.exports = {
     save
