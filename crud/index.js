@@ -1,5 +1,5 @@
 const { initializeApp, applicationDefault, cert } = require('firebase/app');
-const { getFirestore, collection, doc, setDoc, addDoc, query, where, getDocs } = require('firebase/firestore/lite');
+const { getFirestore, collection, doc, setDoc, addDoc, query, where, getDocs, getDoc, deleteDoc } = require('firebase/firestore/lite');
 
 const firebaseConfig = {
     apiKey: "AIzaSyCMfYydh79dinleDXYyRRKm5S7cLjIATEg",
@@ -58,7 +58,28 @@ async function get(nomeTabela) {
     });
 };
 
+async function getByID(nomeTabela, id) {
+    const docRef = doc(db, nomeTabela, id);
+    const docSnap = await getDoc(docRef);
+
+    if(docSnap.exists()){
+        return docSnap.data();
+    } else {
+        return new Error("Not found");
+    }
+}
+
+async function remove(nomeTabela, id) {
+    const dado = await deleteDoc(doc(db, nomeTabela, id));
+
+    return {
+        message: `${id} deleted`
+    }
+}
+
 module.exports = {
     save,
-    get
+    get,
+    getByID,
+    remove
 }

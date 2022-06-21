@@ -5,4 +5,13 @@ async function buscarDados() {
     console.log(dados);
 }
 
-buscarDados();
+async function buscarDadoID() {
+    const dados = await crud.getByID("pessoas", "E1PvPDQTwcZMj8Hbisvv");
+    console.log(dados);
+}
+
+async function remover() {
+    const dados = await crud.getByID("pessoas", "ZGz3cVuTUjLwbDaJCMWJ");
+}
+
+remover();
